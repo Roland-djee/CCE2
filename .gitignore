@@ -1,0 +1,16 @@
+# List of files to be ignored
+*.inp
+*.txt
+*.dat
+*.dat~
+*.exe
+*.out
+*.o
+Doxyfile
+Doxyfile~
+
+# List of directories to be ignored
+./bin
+./build
+./html
+./latex
