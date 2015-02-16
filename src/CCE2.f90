@@ -13,6 +13,7 @@
 ! REVISION HISTORY:
 ! 16-02-2015 - Initial Version
 ! TODO_16_02_2015 - Complete main - TODO_main
+! TODO_16_02_2015 - Deallocate basis%vector - TODO_main
 !------------------------------------------------------------------------------
 
 program CCE2
