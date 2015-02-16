@@ -14,5 +14,4 @@ Doxyfile~
 # List of directories to be ignored
 ./bin/**/*
 ./build/**/*
-./html/**/*
-./latex/**/*
+./doc/**/*
