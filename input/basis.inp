@@ -1,0 +1,4 @@
+basis type [CS, Bath]                          : CS
+spin magnitude [real]                          : 4.5d0
+basis type [CS, Bath]                          : Bath
+spin magnitude [real]                          : 0.5d0

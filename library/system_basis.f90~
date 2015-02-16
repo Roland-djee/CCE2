@@ -1,0 +1,24 @@
+module system_basis
+  use type
+  implicit none
+
+contains
+
+subroutine create_basis(basis_nb)
+  implicit none
+  ! local variables
+  integer :: i, mt
+  double precision :: ms
+
+  ms = basis%spin_mag(basis_nb)
+  mt = int(2.d0 * ms + 1.d0)
+
+  allocate (basis%vector(basis_nb,mt))
+
+  do i=1,mt
+     basis%vector(basis_nb,i) = - ms + dble(i)
+  end do
+  
+end subroutine create_basis
+
+end module system_basis

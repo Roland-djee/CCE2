@@ -1,0 +1,17 @@
+program CCE2
+  use type
+  use read
+  use system_basis
+  implicit none
+
+  call read_basis
+
+  print*,basis%spin_type(1)
+  print*,basis%spin_type(2)  
+  print*,basis%spin_mag(1)
+  print*,basis%spin_mag(2)
+
+  basis_nb = 1
+  call create_basis (basis_nb)
+
+end program CCE2

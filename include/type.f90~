@@ -1,0 +1,14 @@
+module type
+  implicit none
+
+  integer :: basis_nb
+
+  type basis_def
+     sequence
+     character (len=20) :: spin_type(2)
+     double precision   :: spin_mag(2)
+     double precision, allocatable :: vector(:,:)
+  end type basis_def
+  type (basis_def) :: basis
+
+end module type
