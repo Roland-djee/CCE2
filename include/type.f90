@@ -12,13 +12,16 @@
 !
 ! REVISION HISTORY:
 ! 16-02-2015 - Initial Version
-! TODO_16_02_2015 - Complete main - TODO_main
+! TODO_16_02_2015 - Deallocate basis%vector - TODO_type
+! TODO_16_02_2015 - Deallocate H0_diag - TODO_type
 !------------------------------------------------------------------------------
 
 module type
   implicit none
 
   integer :: basis_nb
+
+  double precision, allocatable :: H0_diag(:)
 
   type basis_def
      sequence
