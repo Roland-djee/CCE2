@@ -12,7 +12,7 @@
 !
 ! REVISION HISTORY:
 ! 16-02-2015 - Initial Version
-! TODO_16_02_2015 - Complete main - TODO_main
+! TODO_16_02_2015 - Finish module - TODO_read
 !------------------------------------------------------------------------------
 
 module read
@@ -30,8 +30,7 @@ contains
   ! DESCRIPTION: 
   !> Reads input file basis.inp
   !> @brief
-  !> Flow method (rate of change of position) used by integrator.
-  !> Compute \f$ \frac{d\lambda}{dt} , \frac{d\phi}{dt},  \frac{dz}{dt} \f$
+  !> Sets all variables for the vector basis of the spin system.
   !
   ! REVISION HISTORY:
   ! TODO_dd_mmm_yyyy - TODO_describe_appropriate_changes - TODO_name
@@ -63,6 +62,7 @@ contains
     
     allocate (basis(1)%vector(basis(1)%spin_mt))
     allocate (basis(2)%vector(basis(2)%spin_mt))
+    allocate (H0_diag(basis(1)%spin_mt * basis(2)%spin_mt))
     
   end subroutine read_basis
 
