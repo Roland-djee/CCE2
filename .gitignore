@@ -15,3 +15,4 @@ Doxyfile~
 ./bin/**/*
 ./build/**/*
 ./doc/**/*
+./input/**/*
