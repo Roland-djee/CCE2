@@ -38,7 +38,7 @@ contains
   ! REVISION HISTORY:
   ! TODO_17_02_2015 - Finish select cases - TODO_build_diag
   !
-  !> @param[in]  basis,B0
+  !> @param[in]  type,specie
   !> @param[out] --      
   !> @return     H0_diag
   !---------------------------------------------------------------------------  
@@ -158,7 +158,7 @@ contains
   ! DESCRIPTION: 
   !> Computes the interaction matrix between a pair of bath spins.
   !> @brief
-  !> Computes the -1/2[I+S- + I-S+] + IzSz matrix elements of
+  !> Computes the -1/2(1/2[I+S- + I-S+]) + IzSz matrix elements of
   !> the dipolar coupling interaction matrix.
   !
   ! REVISION HISTORY:
@@ -185,12 +185,28 @@ contains
 
     !> Generate spin operator matrices
     call spin_matrices(bmag1,mt1,Sz1,Sp1,Sm1)
+    CALL PRINT_MATRIX( 'Sp1', 2, 2, Sp1, 2 )
+    CALL PRINT_MATRIX( 'Sm1', 2, 2, Sm1, 2 )
+    CALL PRINT_MATRIX( 'Sz1', 2, 2, Sz1, 2 )  
+
+
     call spin_matrices(bmag2,mt2,Sz2,Sp2,Sm2)
+    CALL PRINT_MATRIX( 'Sp2', 2, 2, Sp2, 2 )
+    CALL PRINT_MATRIX( 'Sm2', 2, 2, Sm2, 2 )
+    CALL PRINT_MATRIX( 'Sz2', 2, 2, Sz2, 2 )  
+
+
 
     !> Compute the Kronecker products
     call kronecker(Sp1,mt1,Sm2,mt2,K1) 
     call kronecker(Sm1,mt1,Sp2,mt2,K2)
     call kronecker(Sz1,mt1,Sz2,mt2,K3)
+
+    CALL PRINT_MATRIX( 'K1', 4, 4, K1, 4 )
+    CALL PRINT_MATRIX( 'K2', 4, 4, K2, 4 )
+    CALL PRINT_MATRIX( 'K3', 4, 4, K3, 4 )  
+
+
 
     select case (specie)
     case ("Bi")
@@ -207,7 +223,7 @@ contains
        !stop
     end select
 
-    H_int = - 0.5d0 * (K1 + K2) + K3
+    H_int = - 0.25d0 * (K1 + K2) + K3
     H_int = A * H_int  
     
   end subroutine build_int
