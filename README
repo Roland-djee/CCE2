@@ -80,12 +80,17 @@ Getting help
 Documentation
 =============
 
+Requirements:
+
+- Dot (contained in Graphviz package)
+- LaTeX compiler (pdflatex)
+
 You can generate a full documentation of CCE2 by using doxygen with the
 Doxyfile:
 
 doxygen Doxyfile
 
-This will produce both an html call tree and a latex documentation in the
+This will produce both an html call tree and a LaTeX documentation in the
 doc directory.
 
 License
