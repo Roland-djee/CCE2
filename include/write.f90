@@ -84,4 +84,26 @@ contains
       RETURN
       END SUBROUTINE PRINT_MATRIX_CMPLX
 
+!  =============================================================================
+!
+!     Auxiliary routine: printing a matrix.
+!
+      SUBROUTINE PRINT_MATRIX_BLOCK( DESC, M, N, M2, N2, A, LDA )
+      CHARACTER*(*)    DESC
+      INTEGER          M, N, M2, N2, LDA
+      DOUBLE PRECISION A( LDA, * )
+!
+      INTEGER          I, J
+!
+      WRITE(*,*)
+      WRITE(*,*) DESC
+      DO I = M, M2
+         WRITE(*,9998) ( A( I, J ), J = N, N2 )
+      END DO
+!
+! 9998 FORMAT( 11(:,1X,F6.2) )
+ 9998 FORMAT( 11(:,1X,ES13.5E3) )
+      RETURN
+      END SUBROUTINE PRINT_MATRIX_BLOCK
+
 end module write
