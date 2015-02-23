@@ -1,0 +1,118 @@
+CCE2 CCPQ project
+=================
+
+This code is intended to calculate the decoherence of central 
+spin systems entangled with a bath of spin impurities using CCE2
+formalism.
+
+***Last modified version 23/02/2015***
+
+CCE2 - Fortran library for spin decoherence
+===========================================
+
+Solves for the many-body dynamics of a central spin system coupled to
+an interacting spin bath.
+
+*To be implemented soon*
+- Includes the generation of a crystal structure.
+- Includes special methods for decoherence of electron/nuclear qubits.
+- Includes sequence of CPMG pulses.
+
+- Includes the decoherence using CCE2 method.
+
+Installation
+============
+
+Requirements:
+
+- Intel or GNU fortran compiler
+- Git
+- Make/Cmake
+
+The following instructions are for a Unix-like environment
+without root privileges.
+
+In a terminal,
+
+```sh
+mkdir CCE2
+cd CCE2
+git clone https://github.com/UCLGuichard/CCE2
+```
+
+This gets the code. Now let's build it.
+
+```sh
+cd CCE2
+make ./build
+cd ./build
+cmake ..
+make
+```
+
+If all went well, you should now have created an executable CCE2.exe in 
+the ./bin directory.
+
+You may wish to modify the CMakeLists.txt to adapt to your own system.
+
+***CCE2 has been tested on Linux***
+
+Usage
+-----
+
+Run the executable CCE2.exe in the ./bin directory.
+It takes the arguments defined in the input files 
+
+basis.inp      ! Sets the properties of the system.
+
+in the ./input folder. Modify them for your own purposes.
+
+Testing
+-------
+
+*To be implemented soon.*
+
+Example
+-------
+
+Getting help
+------------
+
+License
+=======
+
+See LICENSE file for more details.
+
+Citation
+========
+
+See CITATION file for more details.
+
+Version
+=======
+
+1.0 (in progress)
+
+History
+=======
+
+CCE2 is based on bits and pieces of old code for certain spin baths
+and central spin systems. These were written by R. Guichard starting
+in 2015. Methods used to efficiently fill Hamiltonian matrix elements
+were originally written in Fortran by Prof. Tania Monteiro. Checking has
+been performed with Setrak Balian's C++ spindec code:
+
+http://www.bitbucket.org/sbalian/spindec
+
+Acknowledgements
+================
+
+- Prof. Tania Monteiro
+- Setrak Balian
+
+Contact
+=======
+
+[Roland Guichard] - <r.guichard@ucl.ac.uk>
+
+
