@@ -1,0 +1,29 @@
+!------------------------------------------------------------------------------
+! CCE2 module
+!------------------------------------------------------------------------------
+!
+! MODULE: spin_generator
+!
+!> @author
+!> Dr. Roland Guichard University College London
+!
+! DESCRIPTION: 
+!> Generates the spin operator matrices for any spin.
+!
+! REVISION HISTORY:
+! 19-02-2015 - Initial Version
+! TODO_19_02_2015 - Complete  - TODO_spin_generator
+!------------------------------------------------------------------------------
+
+module spin_generator
+  implicit none
+
+contains
+
+  subroutine spin_matrices
+    implicit none
+
+
+  end subroutine spin_matrices
+
+end module spin_generator

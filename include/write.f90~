@@ -1,0 +1,23 @@
+!------------------------------------------------------------------------------
+! CCE2 module
+!------------------------------------------------------------------------------
+!
+! MODULE: write
+!
+!> @author
+!> Dr. Roland Guichard University College London
+!
+! DESCRIPTION: 
+!> Write outputs as screen prints or files. 
+!
+! REVISION HISTORY:
+! 19-02-2015 - Initial Version
+! TODO_19_02_2015 - Complete  - TODO_write
+!------------------------------------------------------------------------------
+
+module write
+  implicit none
+
+contains
+
+end module write

@@ -1,0 +1,50 @@
+\contentsline {chapter}{\numberline {1}Modules Index}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Modules List}{1}{section.1.1}
+\contentsline {chapter}{\numberline {2}Data Type Index}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Data Types List}{3}{section.2.1}
+\contentsline {chapter}{\numberline {3}File Index}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}File List}{5}{section.3.1}
+\contentsline {chapter}{\numberline {4}Module Documentation}{7}{chapter.4}
+\contentsline {section}{\numberline {4.1}build\_\discretionary {-}{}{}hamiltonian Module Reference}{7}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Detailed Description}{7}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Function/Subroutine Documentation}{7}{subsection.4.1.2}
+\contentsline {subsubsection}{\numberline {4.1.2.1}build\_\discretionary {-}{}{}diag}{7}{subsubsection.4.1.2.1}
+\contentsline {section}{\numberline {4.2}constant Module Reference}{9}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Detailed Description}{9}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Variable Documentation}{9}{subsection.4.2.2}
+\contentsline {subsubsection}{\numberline {4.2.2.1}gamma\_\discretionary {-}{}{}e}{9}{subsubsection.4.2.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2.2}gamma\_\discretionary {-}{}{}n\_\discretionary {-}{}{}29Si}{9}{subsubsection.4.2.2.2}
+\contentsline {subsubsection}{\numberline {4.2.2.3}pi}{9}{subsubsection.4.2.2.3}
+\contentsline {section}{\numberline {4.3}read Module Reference}{10}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Detailed Description}{10}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Function/Subroutine Documentation}{10}{subsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.2.1}read\_\discretionary {-}{}{}basis}{10}{subsubsection.4.3.2.1}
+\contentsline {subsection}{\numberline {4.3.3}Variable Documentation}{10}{subsection.4.3.3}
+\contentsline {subsubsection}{\numberline {4.3.3.1}fmt\_\discretionary {-}{}{}dbl}{10}{subsubsection.4.3.3.1}
+\contentsline {subsubsection}{\numberline {4.3.3.2}fmt\_\discretionary {-}{}{}str}{10}{subsubsection.4.3.3.2}
+\contentsline {section}{\numberline {4.4}system\_\discretionary {-}{}{}basis Module Reference}{11}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Detailed Description}{11}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Function/Subroutine Documentation}{11}{subsection.4.4.2}
+\contentsline {subsubsection}{\numberline {4.4.2.1}create\_\discretionary {-}{}{}basis}{11}{subsubsection.4.4.2.1}
+\contentsline {section}{\numberline {4.5}type Module Reference}{12}{section.4.5}
+\contentsline {subsection}{\numberline {4.5.1}Detailed Description}{12}{subsection.4.5.1}
+\contentsline {subsection}{\numberline {4.5.2}Variable Documentation}{12}{subsection.4.5.2}
+\contentsline {subsubsection}{\numberline {4.5.2.1}basis}{12}{subsubsection.4.5.2.1}
+\contentsline {subsubsection}{\numberline {4.5.2.2}basis\_\discretionary {-}{}{}nb}{12}{subsubsection.4.5.2.2}
+\contentsline {subsubsection}{\numberline {4.5.2.3}H0\_\discretionary {-}{}{}diag}{12}{subsubsection.4.5.2.3}
+\contentsline {chapter}{\numberline {5}Data Type Documentation}{13}{chapter.5}
+\contentsline {section}{\numberline {5.1}type::basis\_\discretionary {-}{}{}def Type Reference}{13}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Member Data Documentation}{13}{subsection.5.1.1}
+\contentsline {subsubsection}{\numberline {5.1.1.1}spin\_\discretionary {-}{}{}mag}{13}{subsubsection.5.1.1.1}
+\contentsline {subsubsection}{\numberline {5.1.1.2}spin\_\discretionary {-}{}{}mt}{13}{subsubsection.5.1.1.2}
+\contentsline {subsubsection}{\numberline {5.1.1.3}spin\_\discretionary {-}{}{}type}{13}{subsubsection.5.1.1.3}
+\contentsline {subsubsection}{\numberline {5.1.1.4}vector}{13}{subsubsection.5.1.1.4}
+\contentsline {chapter}{\numberline {6}File Documentation}{15}{chapter.6}
+\contentsline {section}{\numberline {6.1}include/constant.f90 File Reference}{15}{section.6.1}
+\contentsline {section}{\numberline {6.2}include/read.f90 File Reference}{16}{section.6.2}
+\contentsline {section}{\numberline {6.3}include/type.f90 File Reference}{17}{section.6.3}
+\contentsline {section}{\numberline {6.4}library/build\_\discretionary {-}{}{}hamiltonian.f90 File Reference}{18}{section.6.4}
+\contentsline {section}{\numberline {6.5}library/system\_\discretionary {-}{}{}basis.f90 File Reference}{19}{section.6.5}
+\contentsline {section}{\numberline {6.6}src/CCE2.f90 File Reference}{20}{section.6.6}
+\contentsline {subsection}{\numberline {6.6.1}Function Documentation}{20}{subsection.6.6.1}
+\contentsline {subsubsection}{\numberline {6.6.1.1}CCE2}{20}{subsubsection.6.6.1.1}

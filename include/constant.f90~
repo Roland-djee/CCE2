@@ -1,0 +1,15 @@
+!------------------------------------------------------------------------------
+! CCE2 module
+!------------------------------------------------------------------------------
+!
+! MODULE: constant
+!
+!> @author
+!> Dr. Roland Guichard University College London
+!
+! DESCRIPTION: 
+!> Defines all physical constants needed for CCE2
+!
+! REVISION HISTORY:
+! 16-02-2015 - Initial Version
+!------------------------------------------------------------------------------

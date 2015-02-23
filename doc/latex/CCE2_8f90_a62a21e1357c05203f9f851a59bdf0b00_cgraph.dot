@@ -1,0 +1,13 @@
+digraph G
+{
+  edge [fontname="FreeSans",fontsize="10",labelfontname="FreeSans",labelfontsize="10"];
+  node [fontname="FreeSans",fontsize="10",shape=record];
+  rankdir=LR;
+  Node1 [label="CCE2",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="build_hamiltonian::build_diag",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespacebuild__hamiltonian.html#ab5ac348f3684c47ce811a87c9c33acf7",tooltip="Computes the diagonal part of the free Hamiltonian."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="system_basis::create_basis",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespacesystem__basis.html#a12b502e29bd15e35c91dd08f836f4e20",tooltip="Creates the vector basis."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="read::read_basis",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespaceread.html#ad2d1fbc89fe20fbc19d9e322f246bb82",tooltip="Reads input file basis.inp."];
+}

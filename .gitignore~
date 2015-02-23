@@ -1,0 +1,15 @@
+# List of files to be ignored
+*.inp
+*.dat
+*.dat~
+*.exe
+*.out
+*.o
+
+# List of directories to be ignored
+*.inp
+*.dat
+*.dat~
+*.exe
+*.out
+*.o

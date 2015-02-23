@@ -1,0 +1,10 @@
+# The fortran modules provided by this target.
+provides
+ build_hamiltonian
+ constant
+ math
+ read
+ spin_generator
+ system_basis
+ type
+ write
