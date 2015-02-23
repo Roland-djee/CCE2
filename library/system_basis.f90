@@ -75,21 +75,20 @@ contains
        !> Sets spin magnitudes
        select case (specie)
        case ("Bi")
-          basis(1)%spin_mag = I_209Bi
-          basis(1)%spin_mt  = int(2.d0 * basis(1)%spin_mag + 1.d0)
+          basis(2)%spin_mag = I_209Bi
+          basis(2)%spin_mt  = int(2.d0 * basis(2)%spin_mag + 1.d0)
        case ("P")
-          basis(1)%spin_mag = I_31P
-          basis(1)%spin_mt  = int(2.d0 * basis(1)%spin_mag + 1.d0)
+          basis(2)%spin_mag = I_31P
+          basis(2)%spin_mt  = int(2.d0 * basis(2)%spin_mag + 1.d0)
        case ("Si")
-          basis(1)%spin_mag = I_29Si
-          basis(1)%spin_mt  = int(2.d0 * basis(1)%spin_mag + 1.d0)
+          basis(2)%spin_mag = I_29Si
+          basis(2)%spin_mt  = int(2.d0 * basis(2)%spin_mag + 1.d0)
        case ("e")
           write(*,*)'To be finished...'
        case ("n")
           write(*,*)'To be finished...'
        end select       
-       basis(1)%spin_mt = int(2.d0 * basis(2)%spin_mag + 1.d0)
-       basis(2)%spin_mt = 1
+       basis(1)%spin_mt = 1
        call create_vectors1
     end select
       
@@ -117,13 +116,13 @@ contains
     integer :: j
 
     allocate (basis(1)%vector(basis(1)%spin_mt))
-    allocate (basis(2)%vector(1))
+    allocate (basis(2)%vector(basis(2)%spin_mt))
  
-    do j=1,basis(1)%spin_mt
-       basis(1)%vector(j) = - basis(1)%spin_mag + dble(j - 1)
+    do j=1,basis(2)%spin_mt
+       basis(2)%vector(j) = - basis(2)%spin_mag + dble(j - 1)
     end do
 
-    basis(2)%vector(1) = 0.d0
+    basis(1)%vector(1) = 0.d0
 
   end subroutine create_vectors1
   
