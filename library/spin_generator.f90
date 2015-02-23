@@ -38,15 +38,14 @@ contains
   !> @return     Sz,S+,S-
   !---------------------------------------------------------------------------
 
-  subroutine spin_matrices(ms)
+  subroutine spin_matrices(ms,mt,Sz,Sp,Sm)
     implicit none
-    integer :: mt,i,j
-    double precision, intent(in)  :: ms
+    integer :: i,j
+    integer, intent(in) :: mt
+    double precision, intent(in)  :: ms    
     double precision :: m,mp,sqrt_fact
+    double precision :: Sz(mt,mt),Sp(mt,mt),Sm(mt,mt)
 
-    mt = int(2.d0 * abs(ms) + 1.d0)
-    allocate(Sz(mt,mt),Sp(mt,mt),Sm(mt,mt))
-    
     Sz = 0.d0
     Sp = 0.d0
     Sm = 0.d0
