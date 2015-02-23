@@ -23,8 +23,8 @@ module type
   integer :: basis_nb
 
   double precision, allocatable :: H0_diag(:)
-  double precision, allocatable :: H_hf(:)
-  double precision, allocatable :: Sz(:,:),Sp(:,:),Sm(:,:)
+  double precision, allocatable :: H_hf(:,:),H_int(:,:)
+  double precision, allocatable :: HCS(:,:)
 
   type vector
      sequence
