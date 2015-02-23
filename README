@@ -43,8 +43,7 @@ git clone https://github.com/UCLGuichard/CCE2
 This gets the code. Now let's build it.
 
 ```sh
-cd CCE2
-make ./build
+mkdir ./build
 cd ./build
 cmake ..
 make
