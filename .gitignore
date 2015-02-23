@@ -10,6 +10,9 @@
 *.o
 Doxyfile
 Doxyfile~
+CITATION~
+LICENSE~
+README~
 
 # List of directories to be ignored
 ./bin/**/*
