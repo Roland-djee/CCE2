@@ -71,8 +71,6 @@ program CCE2
   deallocate(H0_diag,H_hf,HCS)
 
 !> Create the basis vectors for basis 2
-!> Warning: Although the input is relative to basis 2
-!> the vector is overwritten in basis(1)
   call create_basis(basis(2)%spin_type,basis(2)%spin_sp)
 
   CALL PRINT_MATRIX( 'Basis vector 2', 2, 1, basis(2)%vector, 2 )
@@ -84,10 +82,30 @@ program CCE2
 
 !> Build the interaction matrix for basis 2
   call build_int(basis(2)%spin_mag,basis(2)%spin_mt,basis(2)%spin_sp,&
-                basis(2)%spin_mag,basis(2)%spin_mt)
+                 basis(2)%spin_mag,basis(2)%spin_mt)
 
   CALL PRINT_MATRIX( 'H_int', 4, 4, H_int, 4 )
 
   deallocate(H0_diag,H_int)
+
+!> Build the interaction matrix between basis 1 and basis 2
+
+  !call build_int_12(basis(1)%spin_mag,10,0.5d0,2,&
+  !                  basis(2)%spin_mag,basis(2)%spin_mt)
+
+  call build_int_12(0.5d0,2,0.5d0,2,&
+                    basis(2)%spin_mag,basis(2)%spin_mt)
+
+  CALL PRINT_MATRIX( 'H_int_12', 8, 8, H_int_12, 8 )
+
+  !CALL PRINT_MATRIX_BLOCK( 'H_int_12 1x1', 1, 1, 10, 10, H_int_12, 40 )
+  !CALL PRINT_MATRIX_BLOCK( 'H_int_12 1x2', 1, 11, 10, 20, H_int_12, 40 )
+  !CALL PRINT_MATRIX_BLOCK( 'H_int_12 1x3', 1, 21, 10, 30, H_int_12, 40 )
+  !CALL PRINT_MATRIX_BLOCK( 'H_int_12 1x4', 1, 31, 10, 40, H_int_12, 40 )
+
+  !CALL PRINT_MATRIX_BLOCK( 'H_int_12 2x1', 11, 1, 20, 10, H_int_12, 40 )
+  !CALL PRINT_MATRIX_BLOCK( 'H_int_12 2x2', 11, 11, 20, 20, H_int_12, 40 )
+  !CALL PRINT_MATRIX_BLOCK( 'H_int_12 2x3', 11, 21, 20, 30, H_int_12, 40 )
+  !CALL PRINT_MATRIX_BLOCK( 'H_int_12 2x4', 11, 31, 20, 40, H_int_12, 40 )
 
 end program CCE2
