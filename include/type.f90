@@ -24,7 +24,7 @@ module type
 
   double precision, allocatable :: H0_diag(:)
   double precision, allocatable :: H_hf(:,:),H_int(:,:)
-  double precision, allocatable :: HCS(:,:)
+  double precision, allocatable :: HCS(:,:),H_int_12(:,:)
 
   type vector
      sequence
