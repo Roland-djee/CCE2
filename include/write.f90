@@ -86,7 +86,7 @@ contains
 
 !  =============================================================================
 !
-!     Auxiliary routine: printing a matrix.
+!     Auxiliary routine: printing a matrix as blocks.
 !
       SUBROUTINE PRINT_MATRIX_BLOCK( DESC, M, N, M2, N2, A, LDA )
       CHARACTER*(*)    DESC
