@@ -156,7 +156,7 @@ contains
   !> Dr. Roland Guichard University College London
   !
   ! DESCRIPTION: 
-  !> Computes the interaction matrix between a pair of bath spins.
+  !> Computes the interaction matrix between members of a bath spin pair.
   !> @brief
   !> Computes the -1/2(1/2[I+S- + I-S+]) + IzSz matrix elements of
   !> the dipolar coupling interaction matrix.
@@ -185,28 +185,23 @@ contains
 
     !> Generate spin operator matrices
     call spin_matrices(bmag1,mt1,Sz1,Sp1,Sm1)
-    CALL PRINT_MATRIX( 'Sp1', 2, 2, Sp1, 2 )
-    CALL PRINT_MATRIX( 'Sm1', 2, 2, Sm1, 2 )
-    CALL PRINT_MATRIX( 'Sz1', 2, 2, Sz1, 2 )  
-
+    !CALL PRINT_MATRIX( 'Sp1', 2, 2, Sp1, 2 )
+    !CALL PRINT_MATRIX( 'Sm1', 2, 2, Sm1, 2 )
+    !CALL PRINT_MATRIX( 'Sz1', 2, 2, Sz1, 2 )  
 
     call spin_matrices(bmag2,mt2,Sz2,Sp2,Sm2)
-    CALL PRINT_MATRIX( 'Sp2', 2, 2, Sp2, 2 )
-    CALL PRINT_MATRIX( 'Sm2', 2, 2, Sm2, 2 )
-    CALL PRINT_MATRIX( 'Sz2', 2, 2, Sz2, 2 )  
-
-
+    !CALL PRINT_MATRIX( 'Sp2', 2, 2, Sp2, 2 )
+    !CALL PRINT_MATRIX( 'Sm2', 2, 2, Sm2, 2 )
+    !CALL PRINT_MATRIX( 'Sz2', 2, 2, Sz2, 2 )  
 
     !> Compute the Kronecker products
     call kronecker(Sp1,mt1,Sm2,mt2,K1) 
     call kronecker(Sm1,mt1,Sp2,mt2,K2)
     call kronecker(Sz1,mt1,Sz2,mt2,K3)
 
-    CALL PRINT_MATRIX( 'K1', 4, 4, K1, 4 )
-    CALL PRINT_MATRIX( 'K2', 4, 4, K2, 4 )
-    CALL PRINT_MATRIX( 'K3', 4, 4, K3, 4 )  
-
-
+    !CALL PRINT_MATRIX( 'K1', 4, 4, K1, 4 )
+    !CALL PRINT_MATRIX( 'K2', 4, 4, K2, 4 )
+    !CALL PRINT_MATRIX( 'K3', 4, 4, K3, 4 )  
 
     select case (specie)
     case ("Bi")
@@ -227,5 +222,72 @@ contains
     H_int = A * H_int  
     
   end subroutine build_int
+
+  subroutine build_int_12(bmag1,mt1,bmag2,mt2,bmag3,mt3)
+    implicit none
+    integer, intent(in) :: mt1,mt2,mt3
+    double precision, intent(in) :: bmag1,bmag2,bmag3
+    
+    double precision :: Sz1(mt1,mt1),Sp1(mt1,mt1),Sm1(mt1,mt1)
+    double precision :: Sz2(mt2,mt2),Sp2(mt2,mt2),Sm2(mt2,mt2)
+    double precision :: Sz3(mt3,mt3),Sp3(mt3,mt3),Sm3(mt3,mt3)
+
+    double precision :: Sp12(mt1*mt2,mt1*mt2)
+    double precision :: Sm12(mt1*mt2,mt1*mt2)
+    double precision :: Sz12(mt1*mt2,mt1*mt2)
+
+    double precision :: K1(mt1*mt2*mt3,mt1*mt2*mt3)
+    double precision :: K2(mt1*mt2*mt3,mt1*mt2*mt3)
+    double precision :: K3(mt1*mt2*mt3,mt1*mt2*mt3)
+
+    allocate(H_int_12(mt1*mt2*mt3,mt1*mt2*mt3))
+   
+    !> Generate spin operator matrices
+    call spin_matrices(bmag1,mt1,Sz1,Sp1,Sm1)
+    CALL PRINT_MATRIX( 'Sp1', 2, 2, Sp1, 2 )
+    CALL PRINT_MATRIX( 'Sm1', 2, 2, Sm1, 2 )
+    CALL PRINT_MATRIX( 'Sz1', 2, 2, Sz1, 2 )  
+
+    call spin_matrices(bmag2,mt2,Sz2,Sp2,Sm2)
+    CALL PRINT_MATRIX( 'Sp2', 2, 2, Sp2, 2 )
+    CALL PRINT_MATRIX( 'Sm2', 2, 2, Sm2, 2 )
+    CALL PRINT_MATRIX( 'Sz2', 2, 2, Sz2, 2 )  
+
+    call spin_matrices(bmag3,mt3,Sz3,Sp3,Sm3)
+    CALL PRINT_MATRIX( 'Sp3', 2, 2, Sp3, 2 )
+    CALL PRINT_MATRIX( 'Sm3', 2, 2, Sm3, 2 )
+    CALL PRINT_MATRIX( 'Sz3', 2, 2, Sz3, 2 )  
+
+    !> Compute the Kronecker products for spins 1 and 2
+    !> S+12 = S+1 x S+2 etc.
+    call kronecker(Sp1,mt1,Sp2,mt2,Sp12) 
+    call kronecker(Sm1,mt1,Sm2,mt2,Sm12)
+    call kronecker(Sz1,mt1,Sz2,mt2,Sz12)
+
+    CALL PRINT_MATRIX( 'Sp12', 4, 4, Sp12, 4 )
+    CALL PRINT_MATRIX( 'Sm12', 4, 4, Sm12, 4 )
+    CALL PRINT_MATRIX( 'Sz12', 4, 4, Sz12, 4 )
+
+    !CALL PRINT_MATRIX_BLOCK( 'Sp12 1x1', 1, 1, 10, 10, Sp12, 20 )
+    !CALL PRINT_MATRIX_BLOCK( 'Sp12 1x2', 1, 11, 10, 20, Sp12, 20 )
+    !CALL PRINT_MATRIX_BLOCK( 'Sp12 2x1', 11, 1, 20, 10, Sp12, 20 )
+    !CALL PRINT_MATRIX_BLOCK( 'Sp12 2x2', 11, 11, 20, 20, Sp12, 20 )
+ 
+    !> Compute the Kronecker products for spins 12 and 3
+    call kronecker(Sp12,mt1*mt2,Sm3,mt3,K1) 
+    call kronecker(Sm12,mt1*mt2,Sp3,mt3,K2) 
+    call kronecker(Sz12,mt1*mt2,Sz3,mt3,K3)
+
+    CALL PRINT_MATRIX( 'K1', 8, 8, K1, 8 )
+    CALL PRINT_MATRIX( 'K2', 8, 8, K2, 8 )
+    CALL PRINT_MATRIX( 'K3', 8, 8, K3, 8 )
+    !CALL PRINT_MATRIX_BLOCK( 'Sp12 1x1', 1, 1, 10, 10, Sp12, 20 )
+    !CALL PRINT_MATRIX_BLOCK( 'Sp12 1x2', 1, 11, 10, 20, Sp12, 20 )
+    !CALL PRINT_MATRIX_BLOCK( 'Sp12 2x1', 11, 1, 20, 10, Sp12, 20 )
+    !CALL PRINT_MATRIX_BLOCK( 'Sp12 2x2', 11, 11, 20, 20, Sp12, 20 )
+
+    H_int_12 = 0.5d0 * (K1 + K2) + K3
+
+  end subroutine build_int_12
 
 end module build_hamiltonian
