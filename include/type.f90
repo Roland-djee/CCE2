@@ -20,7 +20,7 @@
 module type
   implicit none
 
-  integer :: basis_nb
+  integer :: cs_mt,bath_mt,tot_basis_mt
 
   double precision, allocatable :: H0_diag(:)
   double precision, allocatable :: H_hf(:,:),H_int(:,:)
@@ -31,7 +31,6 @@ module type
      integer :: x,y,z
      double precision :: ampli
   end type vector
-
   type (vector) :: B0
 
   type basis_def
@@ -39,8 +38,7 @@ module type
      character (len=20) :: spin_type, spin_sp
      integer :: spin_mt
      double precision   :: spin_mag
-     double precision, allocatable :: vector(:)
   end type basis_def
-  type (basis_def) :: basis(2)
+  type (basis_def) :: basis(2),electron
 
 end module type
