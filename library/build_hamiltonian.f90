@@ -31,6 +31,51 @@ contains
   !> Dr. Roland Guichard University College London
   !
   ! DESCRIPTION: 
+  !> Computes the off-diagonal part of the Hamiltonian
+  !> @brief
+  !> Computes successively the central spin (cs), impurity pair interaction 
+  !> (int) and superhyperfine (shf) Hamiltonian matrices
+  !
+  ! REVISION HISTORY:
+  ! TODO_24_02_2015 - Finish select cases - TODO_build_interaction_matrices
+  !
+  !> @param[in]  --
+  !> @param[out] --      
+  !> @return     H_cs,H_int,H_shf
+  !---------------------------------------------------------------------------  
+
+  subroutine build_interaction_matrices
+    implicit none
+
+    integer :: mt1 = basis(1)%spin_mt
+    integer :: mt2 = basis(2)%spin_mt
+
+    double precision :: Sz1(mt1,mt1),Sp1(mt1,mt1),Sm1(mt1,mt1)
+    double precision :: Sze(mt1,mt1),Spe(mt1,mt1),Sme(mt1,mt1)
+    double precision :: Sz2(mt2,mt2),Sp2(mt2,mt2),Sm2(mt2,mt2)
+    double precision :: K1(mt1*mt2,mt1*mt2)
+    double precision :: K2(mt1*mt2,mt1*mt2)
+    double precision :: K3(mt1*mt2,mt1*mt2)
+
+    !> Generate spin operator matrices
+    call spin_matrices(bmag1,mt1,Sz1,Sp1,Sm1)
+    !CALL PRINT_MATRIX( 'Sp1', 2, 2, Sp1, 2 )
+    !CALL PRINT_MATRIX( 'Sm1', 2, 2, Sm1, 2 )
+    !CALL PRINT_MATRIX( 'Sz1', 2, 2, Sz1, 2 )  
+
+    call spin_matrices(bmag2,mt2,Sz2,Sp2,Sm2)
+    !CALL PRINT_MATRIX( 'Sp2', 2, 2, Sp2, 2 )
+    !CALL PRINT_MATRIX( 'Sm2', 2, 2, Sm2, 2 )
+    !CALL PRINT_MATRIX( 'Sz2', 2, 2, Sz2, 2 )  
+    
+
+  end subroutine build_interaction_matrices
+
+  !---------------------------------------------------------------------------  
+  !> @author 
+  !> Dr. Roland Guichard University College London
+  !
+  ! DESCRIPTION: 
   !> Computes the diagonal part of the free Hamiltonian
   !> @brief
   !> Computes the Zeeman terms of the Hamiltonian gamma.Sz.B0
@@ -43,48 +88,63 @@ contains
   !> @return     H0_diag
   !---------------------------------------------------------------------------  
 
-  subroutine build_diag(type,specie)
+  subroutine build_diag
     implicit none
     ! Local variables
-    character (len=20), intent(in) :: type,specie
-    integer :: i,j,k
+    character (len=20) :: type,specie
+    integer :: i,j,k,l,m
+    double precision :: vector1,vector2,vector3,vector4
     double precision :: Zeeman1,Zeeman2
 
-    select case (type)
-    case ("CS")
-       select case (specie)
-       case ("Bi")
-          Zeeman1 = gamma_n_209Bi
-       case ("P")
-          Zeeman1 = gamma_n_31P 
-       case ("Si")
-          Zeeman1 = gamma_n_29Si
+    do i=1,2
+       type   = basis(i)%spin_type
+       specie = basis(i)%spin_sp
+       select case (type)
+       case ("CS")
+          select case (specie)
+          case ("Bi")
+             Zeeman1 = gamma_n_209Bi
+          case ("P")
+             Zeeman1 = gamma_n_31P 
+          case ("Si")
+             Zeeman1 = gamma_n_29Si
+          end select
+       case ("Bath")
+          select case (specie)
+          case ("Bi")
+             Zeeman2 = gamma_n_209Bi
+          case ("P")
+             Zeeman2 = gamma_n_31P 
+          case ("Si")
+             Zeeman2 = gamma_n_29Si
+          end select
        end select
-       Zeeman2 = gamma_e
-    case ("Bath")
-       select case (specie)
-       case ("Bi")
-          Zeeman2 = gamma_n_209Bi
-       case ("P")
-          Zeeman2 = gamma_n_31P 
-       case ("Si")
-          Zeeman2 = gamma_n_29Si
-       end select
-       Zeeman1 = 0.d0
-    end select
-
-    allocate (H0_diag(basis(1)%spin_mt * basis(2)%spin_mt))
-
-    k = 0
-    do i=1,basis(1)%spin_mt
-       do j=1,basis(2)%spin_mt
-          k = k + 1
-          H0_diag(k) = Zeeman1 * basis(1)%vector(i) + &
-                       Zeeman2 * basis(2)%vector(j)
-       end do
     end do
 
-    deallocate (basis(1)%vector,basis(2)%vector)
+    allocate (H0_diag(tot_basis_mt))
+
+    m = 0
+    !> Central spin loop
+    do i=1,basis(1)%spin_mt
+       vector1 = - basis(1)%spin_mag + dble(i - 1)
+       !> Free electron loop
+       do j=1,electron%spin_mt
+          vector2 = - electron%spin_mag + dble(j - 1)
+          !> First impurity loop
+          do k=1,basis(2)%spin_mt
+             vector3 = - basis(2)%spin_mag + dble(k - 1)
+             !> Second impurity loop
+             do l=1,basis(2)%spin_mt
+                vector4 = - basis(2)%spin_mag + dble(l - 1)
+                m = m + 1
+                H0_diag(m) = Zeeman1 * vector1 + &
+                             gamma_e * vector2 + &
+                             Zeeman2 * vector3 + &
+                             Zeeman2 * vector4               
+             end do
+          end do
+       end do
+    end do
 
     H0_diag = H0_diag * B0%ampli
 
