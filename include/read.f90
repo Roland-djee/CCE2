@@ -46,6 +46,8 @@ contains
 
   subroutine read_basis
     implicit none
+    ! Local variables
+    integer :: i
     integer :: basis_inp = 10
     
     open(unit = basis_inp, file = '../input/basis.inp')
@@ -54,12 +56,16 @@ contains
     read (basis_inp, fmt_dbl) B0%ampli
     read (basis_inp, fmt_str) basis(1)%spin_type
     read (basis_inp, fmt_str) basis(1)%spin_sp
-    if (basis(1)%spin_type .ne. 'CS' .and. basis(1)%spin_type .ne. 'Bath') then
-       write(*,*)'Input Basis',trim(basis(1)%spin_type),' not recognized...'
-       stop
-    end if
     read (basis_inp, fmt_str) basis(2)%spin_type
     read (basis_inp, fmt_str) basis(2)%spin_sp
+
+    do i=1,2
+       if (basis(i)%spin_type .ne. 'CS' .and. &
+           basis(i)%spin_type .ne. 'Bath') then
+          write(*,*)'Input Basis',trim(basis(i)%spin_type),' not recognized...'
+          stop
+       end if
+    end do
     
   end subroutine read_basis
 
