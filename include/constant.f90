@@ -33,12 +33,14 @@ module constant
   !> Free electron spin
   double precision, parameter :: S_e = 0.5d0
 
+  !> Moments for 29Si impurities
+
   !> 29Si nuclear gyromagnetic ratio [rad/s/T]
   double precision, parameter :: gamma_n_29Si = - 53.1903d6
   !> 29Si nuclear spin
   double precision, parameter :: I_29Si = 0.5d0
 
-  !> Moments for donors in Si
+  !> Moments for donors
   
   !> Bismuth
   !> 209Bi nuclear gyromagnetic ratio [rad/s/T]
