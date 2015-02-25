@@ -27,7 +27,7 @@ contains
   !> Dr. Roland Guichard University College London
   !
   ! DESCRIPTION: 
-  !> Sets all the parameters for the construction of the basis vectors.
+  !> Sets all the parameters for the construction of the basis.
   !> @brief
   !>
   !
@@ -39,91 +39,64 @@ contains
   !> @return     --
   !---------------------------------------------------------------------------
 
-  subroutine create_basis(type,specie)
+  subroutine create_basis
     implicit none
     ! local variables
-    character (len=20), intent(in) :: type,specie
-
-    select case (type)
-    case ("CS")     
-       !> Central spin system {donor + e-}
-       !> Sets spin magnitudes
-       select case (specie)
-       case ("Bi")
-          basis(1)%spin_mag = I_209Bi
-          basis(1)%spin_mt  = int(2.d0 * basis(1)%spin_mag + 1.d0)
-          basis(2)%spin_mt  = 2
-          basis(2)%spin_mag = S_e
-       case ("P")
-          basis(1)%spin_mag = I_31P
-          basis(1)%spin_mt  = int(2.d0 * basis(1)%spin_mag + 1.d0)
-          basis(2)%spin_mt  = 2
-          basis(2)%spin_mag = S_e
-       case ("Si")
-          basis(1)%spin_mag = I_29Si
-          basis(1)%spin_mt  = int(2.d0 * basis(1)%spin_mag + 1.d0)
-          basis(2)%spin_mt  = 2
-          basis(2)%spin_mag = S_e
-       case ("e")
-          write(*,*)'To be finished...'
-       case ("n")
-          write(*,*)'To be finished...'
-       end select       
-       call create_vectors2
-    case ("Bath")
-       !> Bath spin system
-       !> Sets spin magnitudes
-       select case (specie)
-       case ("Bi")
-          basis(2)%spin_mag = I_209Bi
-          basis(2)%spin_mt  = int(2.d0 * basis(2)%spin_mag + 1.d0)
-       case ("P")
-          basis(2)%spin_mag = I_31P
-          basis(2)%spin_mt  = int(2.d0 * basis(2)%spin_mag + 1.d0)
-       case ("Si")
-          basis(2)%spin_mag = I_29Si
-          basis(2)%spin_mt  = int(2.d0 * basis(2)%spin_mag + 1.d0)
-       case ("e")
-          write(*,*)'To be finished...'
-       case ("n")
-          write(*,*)'To be finished...'
-       end select       
-       basis(1)%spin_mt = 1
-       call create_vectors1
-    end select
-      
-  end subroutine create_basis
-
-  subroutine create_vectors2
-    implicit none
-    ! Local variables
-    integer :: i,j
-
-    allocate (basis(1)%vector(basis(1)%spin_mt))
-    allocate (basis(2)%vector(basis(2)%spin_mt))
+    integer :: i
+    character (len=20) :: type,specie
 
     do i=1,2
-       do j=1,basis(i)%spin_mt
-          basis(i)%vector(j) = - basis(i)%spin_mag + dble(j - 1)
-       end do
+       type   = basis(i)%spin_type
+       specie = basis(i)%spin_sp
+       select case (type)
+       case ("CS")     
+          !> Central spin system {donor + e-}
+          !> Sets spin magnitudes and total m.
+          select case (specie)
+          case ("Bi")
+             basis(i)%spin_mag = I_209Bi
+             basis(i)%spin_mt  = int(2.d0 * basis(i)%spin_mag + 1.d0)
+          case ("P")
+             basis(i)%spin_mag = I_31P
+             basis(i)%spin_mt  = int(2.d0 * basis(i)%spin_mag + 1.d0)
+          case ("Si")
+             basis(i)%spin_mag = I_29Si
+             basis(i)%spin_mt  = int(2.d0 * basis(i)%spin_mag + 1.d0)
+          case ("e")
+             write(*,*)'To be finished...'
+          case ("n")
+             write(*,*)'To be finished...'
+          end select
+          !> Central spin total spin including the free electron
+          electron%spin_mag = S_e
+          electron%spin_mt  = int(2.d0 * electron%spin_mag + 1.d0)
+          cs_mt = basis(i)%spin_mt * electron%spin_mt
+       case ("Bath")
+          !> Bath spin system
+          !> Sets spin magnitudes and total m.
+          select case (specie)
+          case ("Bi")
+             basis(i)%spin_mag = I_209Bi
+             basis(i)%spin_mt  = int(2.d0 * basis(i)%spin_mag + 1.d0)
+          case ("P")
+             basis(i)%spin_mag = I_31P
+             basis(i)%spin_mt  = int(2.d0 * basis(i)%spin_mag + 1.d0)
+          case ("Si")
+             basis(i)%spin_mag = I_29Si
+             basis(i)%spin_mt  = int(2.d0 * basis(i)%spin_mag + 1.d0)
+          case ("e")
+             write(*,*)'To be finished...'
+          case ("n")
+             write(*,*)'To be finished...'
+          end select
+          !> Bath pair total spin
+          bath_mt = basis(i)%spin_mt**2
+       end select
     end do
-
-  end subroutine create_vectors2
-
-  subroutine create_vectors1
-    implicit none
-    ! Local variables
-    integer :: j
-
-    allocate (basis(1)%vector(basis(1)%spin_mt))
-    allocate (basis(2)%vector(basis(2)%spin_mt))
+    
+    !> Toaol basis dimension
+    tot_basis_mt = cs_mt * bath_mt
+      
+  end subroutine create_basis
  
-    do j=1,basis(2)%spin_mt
-       basis(2)%vector(j) = - basis(2)%spin_mag + dble(j - 1)
-    end do
-
-    basis(1)%vector(1) = 0.d0
-
-  end subroutine create_vectors1
-  
 end module system_basis
