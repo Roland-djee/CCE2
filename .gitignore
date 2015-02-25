@@ -16,11 +16,7 @@ LICENSE~
 README~
 
 # List of directories to be ignored
-./bin/*
-./build/*
-./doc/*
-./input/*
-./bin/**/*
-./build/**/*
-./doc/**/*
-./input/**/*
+./bin
+./build
+./doc
+./input
