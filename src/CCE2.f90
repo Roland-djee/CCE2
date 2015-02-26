@@ -42,17 +42,13 @@ program CCE2
   print*,basis(2)%spin_type  
   print*,basis(2)%spin_sp
 
-!> Create the basis vectors for basis 1
-!> Warning: from here if basis(1)%spin_type = 'CS'
-!> basis(2)%spin_mt and basis(2)%spin_mag only are set to an electron
+!> Create the basis
   call create_basis
 
   print*,basis(1)%spin_mag
   print*,basis(1)%spin_mt
   print*,basis(2)%spin_mag  
   print*,basis(2)%spin_mt
-  !stop
-
 
 !> Build the diagonal matrix elements of the Hamiltonian
   call build_diag
@@ -63,58 +59,19 @@ program CCE2
   
   call build_interaction_matrices
 
-!> Build the hyperfine Hamiltonian matrix for basis 1
-  !call build_hf(basis(1)%spin_mag,basis(1)%spin_mt,basis(1)%spin_sp,&
-  !              basis(2)%spin_mag,basis(2)%spin_mt)
-  
-  !CALL PRINT_MATRIX_BLOCK( 'Hf 1x1', 1, 1, 10, 10, H_hf, 20 )
-  !CALL PRINT_MATRIX_BLOCK( 'Hf 1x2', 1, 11, 10, 20, H_hf, 20 )
-  !CALL PRINT_MATRIX_BLOCK( 'Hf 2x1', 11, 1, 20, 10, H_hf, 20 )
-  !CALL PRINT_MATRIX_BLOCK( 'Hf 2x2', 11, 11, 20, 20, H_hf, 20 )
+  XJ1 = 1.315044791543825d-02 * 1.d6
+  XJ2 = 1.690283813464443d-02 * 1.d6
+  C12 = -3.863519669068800d-04* 1.d6  
 
-!> Build the full Hamiltonian for the basis 1
-  !allocate (HCS(size(H_hf,1),size(H_hf,1)))
-  !HCS = H_hf
-  !forall (i=1:size(HCS,1)) HCS(i,i) = HCS(i,i) + H0_diag(i)
+  allocate (H_tot(16,16))
 
-  !deallocate(H0_diag,H_hf,HCS)
+  !H_tot = C12 * H_int + (XJ1 - XJ2) * H_shf + H_cs
+  !H_tot = C12 * H_int
+  H_tot = (XJ1 - XJ2) * H_shf + H_cs
 
-!> Create the basis vectors for basis 2
-  !call create_basis(basis(2)%spin_type,basis(2)%spin_sp)
-
-  !CALL PRINT_MATRIX( 'Basis vector 2', 2, 1, basis(2)%vector, 2 )
-  
-!> Build the diagonal free-Hamiltonian for basis 2
-  !call build_diag(basis(2)%spin_type,basis(2)%spin_sp)
-
-  !CALL PRINT_MATRIX( 'H0 diag.', 2, 1, H0_diag, 2 )
-
-!> Build the interaction matrix for basis 2
-  !call build_int(basis(2)%spin_mag,basis(2)%spin_mt,basis(2)%spin_sp,&
-  !               basis(2)%spin_mag,basis(2)%spin_mt)
-
-  !CALL PRINT_MATRIX( 'H_int', 4, 4, H_int, 4 )
-
-  !deallocate(H0_diag,H_int)
-
-!> Build the interaction matrix between basis 1 and basis 2
-
-  !call build_int_12(basis(1)%spin_mag,10,0.5d0,2,&
-  !                  basis(2)%spin_mag,basis(2)%spin_mt)
-
-  !call build_int_12(0.5d0,2,0.5d0,2,&
-  !                  basis(2)%spin_mag,basis(2)%spin_mt)
-
-  !CALL PRINT_MATRIX( 'H_int_12', 8, 8, H_int_12, 8 )
-
-  !CALL PRINT_MATRIX_BLOCK( 'H_int_12 1x1', 1, 1, 10, 10, H_int_12, 40 )
-  !CALL PRINT_MATRIX_BLOCK( 'H_int_12 1x2', 1, 11, 10, 20, H_int_12, 40 )
-  !CALL PRINT_MATRIX_BLOCK( 'H_int_12 1x3', 1, 21, 10, 30, H_int_12, 40 )
-  !CALL PRINT_MATRIX_BLOCK( 'H_int_12 1x4', 1, 31, 10, 40, H_int_12, 40 )
-
-  !CALL PRINT_MATRIX_BLOCK( 'H_int_12 2x1', 11, 1, 20, 10, H_int_12, 40 )
-  !CALL PRINT_MATRIX_BLOCK( 'H_int_12 2x2', 11, 11, 20, 20, H_int_12, 40 )
-  !CALL PRINT_MATRIX_BLOCK( 'H_int_12 2x3', 11, 21, 20, 30, H_int_12, 40 )
-  !CALL PRINT_MATRIX_BLOCK( 'H_int_12 2x4', 11, 31, 20, 40, H_int_12, 40 )
+  CALL PRINT_MATRIX_BLOCK( 'H_tot 1x1', 1, 1, 8, 8, H_tot, 16 )
+  CALL PRINT_MATRIX_BLOCK( 'H_tot 1x2', 1, 9, 8, 16, H_tot, 16 )
+  CALL PRINT_MATRIX_BLOCK( 'H_tot 2x1', 9, 1, 16, 8, H_tot, 16 )
+  CALL PRINT_MATRIX_BLOCK( 'H_tot 2x2', 9, 9, 16, 16, H_tot, 16 )
 
 end program CCE2
