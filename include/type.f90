@@ -21,10 +21,13 @@ module type
   implicit none
 
   integer :: cs_mt,bath_mt,tot_basis_mt
+  double precision :: XJ1,XJ2,C12
 
   double precision, allocatable :: H0_diag(:)
-  double precision, allocatable :: H_hf(:,:),H_int(:,:)
-  double precision, allocatable :: HCS(:,:),H_int_12(:,:)
+  double precision, allocatable :: H_cs(:,:)
+  double precision, allocatable :: H_int(:,:)
+  double precision, allocatable :: H_shf(:,:)
+  double precision, allocatable :: H_tot(:,:)
 
   type vector
      sequence
