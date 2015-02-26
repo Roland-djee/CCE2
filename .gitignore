@@ -9,6 +9,7 @@
 *.out
 *.o
 *.mod
+*.dyn
 Doxyfile
 Doxyfile~
 CITATION~
