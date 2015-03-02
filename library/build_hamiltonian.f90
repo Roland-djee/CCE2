@@ -110,7 +110,7 @@ contains
     CALL PRINT_MATRIX_BLOCK( 'H_shf 1x2', 1, 9, 8, 16, H_shf, 16 )
     CALL PRINT_MATRIX_BLOCK( 'H_shf 2x1', 9, 1, 16, 8, H_shf, 16 )
     CALL PRINT_MATRIX_BLOCK( 'H_shf 2x2', 9, 9, 16, 16, H_shf, 16 )
-    
+     
     deallocate (Sz1,Sp1,Sm1)
     deallocate (Sz2,Sp2,Sm2)
     deallocate (Sze,Spe,Sme)
@@ -327,10 +327,10 @@ contains
   !
   ! DESCRIPTION: 
   !> Computes the interaction matrix between the central electron spin and 
-  !> one bath spin impurity.
+  !> each bath spin impurity forming a pair.
   !> @brief
   !> Computes the 1/2[S_cs+I- + S_cs-I+] + S_cszIz matrix elements of
-  !> the superhyperfine coupling interaction matrix.
+  !> the superhyperfine coupling interaction matrix for each spin impurity.
   !
   ! REVISION HISTORY:
   ! TODO_20_02_2015 - Finish matrix elements - TODO_build_hf
@@ -338,7 +338,7 @@ contains
   !> @param[in]  bmag1,mt1,Sz1,Sp1,Sm1,bmage,mte,Sze,Spe,Sme
   !> @param[in]  bmag2,mt2,Sz2,Sp2,Sm2
   !> @param[out] --      
-  !> @return     H_shf
+  !> @return     H_shf1,H_shf2
   !---------------------------------------------------------------------------
 
   subroutine build_shf(mt1,bmage,mte,Sze,Spe,Sme,&
@@ -357,33 +357,49 @@ contains
     double precision :: K2(mt2*mte,mt2*mte)
     double precision :: K3(mt2*mte,mt2*mte)
 
-    double precision :: Id(mt2,mt2)
+    double precision :: Id2(mt2,mt2)
+    double precision :: Idb1(mt1,mt1)
 
-    !> Compute the Kronecker products between the central spin and
-    !> one impurity
+    double precision :: H_shf0(mt2*mt2*mte,mt2*mt2*mte)
+
+    !> Compute the Kronecker products between the central electron spin and
+    !> impurity 1
     call kronecker(Spe,mte,Sm2,mt2,K1) 
     call kronecker(Sme,mte,Sp2,mt2,K2) 
     call kronecker(Sze,mte,Sz2,mt2,K3)
 
-    CALL PRINT_MATRIX( 'K1', 4, 4, K1, 4 )
-    CALL PRINT_MATRIX( 'K2', 4, 4, K2, 4 )
-    CALL PRINT_MATRIX( 'K3', 4, 4, K3, 4 )
-    !CALL PRINT_MATRIX_BLOCK( 'Sp12 1x1', 1, 1, 10, 10, Sp12, 20 )
-    !CALL PRINT_MATRIX_BLOCK( 'Sp12 1x2', 1, 11, 10, 20, Sp12, 20 )
-    !CALL PRINT_MATRIX_BLOCK( 'Sp12 2x1', 11, 1, 20, 10, Sp12, 20 )
-    !CALL PRINT_MATRIX_BLOCK( 'Sp12 2x2', 11, 11, 20, 20, Sp12, 20 )
+    !CALL PRINT_MATRIX( 'K1', 4, 4, K1, 4 )
+    !CALL PRINT_MATRIX( 'K2', 4, 4, K2, 4 )
+    !CALL PRINT_MATRIX( 'K3', 4, 4, K3, 4 )
 
+    !> Treat spin 1 first
     H0 = 0.5d0 * (K1 + K2) + K3
 
-    !> Raise H_shf to the full dimensions of the system {cs + pair}
+    !> Raise H_shf1 to the full dimensions of the system {cs + pair}
 
     allocate(H_shf(mt1*mte*mt2*mt2,mt1*mte*mt2*mt2))
 
-    !> Identity matrix
-    Id = 0.d0
-    forall (i=1:mt2) Id(i,i) = 1.d0
+    !> Identity matrices
+    Id2  = 0.d0
+    Idb1 = 0.d0
+    forall (i=1:mt2) Id2(i,i)  = 1.d0
+    forall (i=1:mt1) Idb1(i,i) = 1.d0
     
-    call kronecker(H0,mt1*mt2*mte,Id,mt2,H_shf)
+    !CALL PRINT_MATRIX( 'Id2', 2, 2, Id2, 2 ) 
+    !CALL PRINT_MATRIX( 'Idb1', 2, 2, Idb1, 2 )
+    
+    call kronecker(H0,mt2*mte,Id2,mt2,H_shf0)
+
+    !CALL PRINT_MATRIX( 'H_shf0', 8, 8, H_shf0, 8 )
+    !stop
+ 
+    call kronecker(Idb1,mt1,H_shf0,mt2*mt2*mte,H_shf)
+
+    !CALL PRINT_MATRIX_BLOCK( 'H_shf 1x1', 1, 1, 8, 8, H_shf, 16 )
+    !CALL PRINT_MATRIX_BLOCK( 'H_shf 1x2', 1, 9, 8, 16, H_shf, 16 )
+    !CALL PRINT_MATRIX_BLOCK( 'H_shf 2x1', 9, 1, 16, 8, H_shf, 16 )
+    !CALL PRINT_MATRIX_BLOCK( 'H_shf 2x2', 9, 9, 16, 16, H_shf, 16 )
+    !stop
 
   end subroutine build_shf
 
