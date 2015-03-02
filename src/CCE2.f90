@@ -64,10 +64,16 @@ program CCE2
   C12 = -3.863519669068800d-04* 1.d6  
 
   allocate (H_tot(16,16))
+  H_tot = 0.d0
+  
+  !H_tot = C12 * H_int good !!!
 
   !H_tot = C12 * H_int + (XJ1 - XJ2) * H_shf + H_cs
   !H_tot = C12 * H_int
-  H_tot = (XJ1 - XJ2) * H_shf + H_cs
+  !H_tot = XJ1 * H_shf1 + XJ2 * H_shf2 + H_cs
+  !H_tot = H_shf1 + H_shf2
+  H_tot = (XJ1 + XJ2) * H_shf
+
 
   CALL PRINT_MATRIX_BLOCK( 'H_tot 1x1', 1, 1, 8, 8, H_tot, 16 )
   CALL PRINT_MATRIX_BLOCK( 'H_tot 1x2', 1, 9, 8, 16, H_tot, 16 )
